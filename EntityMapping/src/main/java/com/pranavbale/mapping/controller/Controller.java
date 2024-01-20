@@ -1,11 +1,13 @@
 package com.pranavbale.mapping.controller;
 
+import com.pranavbale.mapping.entity.Address;
 import com.pranavbale.mapping.entity.Laptop;
 import com.pranavbale.mapping.entity.Student;
 import com.pranavbale.mapping.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -38,6 +40,21 @@ public class Controller {
     @GetMapping("/getLaptopByStudentId/{studentId}")
     private Laptop getLaptopByStudentId(@PathVariable UUID studentId) {
         return service.getLaptopByStudentId(studentId);
+    }
+
+    @PostMapping("/addAddress")
+    private Address saveAddress(@RequestBody Address address) {
+        return  service.saveAddress(address);
+    }
+
+    @GetMapping("/getAddress/{addressId}")
+    private Address getAddress(@PathVariable UUID addressId) {
+        return  service.getAddress(addressId);
+    }
+
+    @GetMapping("/getAddressByStudentId/{studentId}")
+    private List<Address> getAddressesByStudentId(UUID studentId) {
+        return  service.getAddressesByStudentId(studentId);
     }
 
 
