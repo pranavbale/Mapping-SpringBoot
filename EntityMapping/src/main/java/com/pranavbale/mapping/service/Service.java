@@ -20,8 +20,8 @@ public class Service {
 
     // one-to-one relationship
     public Laptop saveLaptop(Laptop laptop) {
-        Student st = studentRepository.save(laptop.getStudent());
-        laptop.setStudent(st);
+//        Student st = studentRepository.save(laptop.getStudent());
+//        laptop.setStudent(st);
         return laptopRepository.save(laptop);
     }
 
