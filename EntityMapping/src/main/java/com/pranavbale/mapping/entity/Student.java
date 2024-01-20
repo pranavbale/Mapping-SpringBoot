@@ -1,6 +1,7 @@
 package com.pranavbale.mapping.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,13 +28,13 @@ public class Student {
     // One to One Mapping
     // Laptop table managed a student id
     // mapped by create a only one foreign key otherwise it creat in both the table
-    @JsonBackReference      // to doesn't rotate in a circle
+    @JsonBackReference      // to doesn't rotate in a circle        // it is not work with a collection
     @OneToOne(mappedBy = "student")
     private Laptop laptop;
 
 
     // One to Many Mapping
-    @JsonBackReference      // to doesn't rotate in a circle
+    @JsonIgnore      // to doesn't rotate in a circle
     @OneToMany(mappedBy = "student")
     private List<Address> address;
 }

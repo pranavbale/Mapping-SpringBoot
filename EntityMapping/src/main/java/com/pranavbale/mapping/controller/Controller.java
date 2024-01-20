@@ -53,7 +53,7 @@ public class Controller {
     }
 
     @GetMapping("/getAddressByStudentId/{studentId}")
-    private List<Address> getAddressesByStudentId(UUID studentId) {
+    private List<Address> getAddressesByStudentId( @PathVariable UUID studentId) {
         return  service.getAddressesByStudentId(studentId);
     }
 

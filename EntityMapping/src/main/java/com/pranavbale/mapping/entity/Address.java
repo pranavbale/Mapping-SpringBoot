@@ -16,6 +16,7 @@ import java.util.UUID;
 public class Address {
 
     @Id
+    @GeneratedValue
     private UUID addressId;
     private String address;
 
