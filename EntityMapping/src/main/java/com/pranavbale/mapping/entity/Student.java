@@ -37,4 +37,8 @@ public class Student {
     @JsonIgnore      // to doesn't rotate in a circle
     @OneToMany(mappedBy = "student")
     private List<Address> address;
+
+    // Many to Many Mapping
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Teacher> teachers;
 }

@@ -1,11 +1,10 @@
 package com.pranavbale.mapping.service;
 
-import com.pranavbale.mapping.entity.Address;
-import com.pranavbale.mapping.entity.Laptop;
-import com.pranavbale.mapping.entity.Student;
+import com.pranavbale.mapping.entity.*;
 import com.pranavbale.mapping.repository.AddressRepository;
 import com.pranavbale.mapping.repository.LaptopRepository;
 import com.pranavbale.mapping.repository.StudentRepository;
+import com.pranavbale.mapping.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -22,6 +21,9 @@ public class Service {
 
     @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    private TeacherRepository teacherRepository;
 
 
     // one-to-one relationship
@@ -66,4 +68,63 @@ public class Service {
         return addressRepository.getAllByStudent(studentRepository.findById(studentId).get());
     }
 
+    // Many to Many Mapping
+
+    public Teacher saveTeacher(Teacher teacher) {
+        return  teacherRepository.save(teacher);
+    }
+
+    public Teacher getTeacher(UUID teacherId) {
+        return teacherRepository.findById(teacherId).get();
+    }
+
+    public List<Student> getStudentByTeacherId(UUID teacherId) {
+        return studentRepository.getAllByTeachers(getTeacher(teacherId));
+    }
+
+    public  List<Teacher> getTeacherByStudentId(UUID studentId) {
+        return teacherRepository.findTeachersByStudentId(studentId);
+    }
+
+    public String setStudents (UUID teacherId, UUIDRequest studentId) {
+        List<Student> students = studentRepository.findAllById(studentId.getIds());
+
+        Teacher teacher = teacherRepository.findById(teacherId).get();
+
+        teacher.setStudents(students);
+
+        teacherRepository.save(teacher);
+
+        return "Student set Successfully";
+
+    }
+
+    public String setTeachers(UUID studentId, UUIDRequest teacherId) {
+        List<Teacher> teachers = teacherRepository.findAllById(teacherId.getIds());
+
+        Student student = studentRepository.findById(studentId).get();
+
+        student.setTeachers(teachers);
+
+        studentRepository.save(student);
+
+        return "Teacher set Successfully";
+    }
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    public List<Teacher> getAllTeachers() {
+        return teacherRepository.findAll();
+    }
+
+
+    public List<Laptop> getAllLaptops() {
+        return laptopRepository.findAll();
+    }
+
+    public List<Address> getAllAddress() {
+        return addressRepository.findAll();
+    }
 }
