@@ -23,9 +23,9 @@ public class Laptop {
 
 
     // foreign key generated here
-//    @JsonManagedReference
+    // @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)            // to perform a same operation on the child
-    @JoinColumn(name = "student_id")    // mention the name of the join column
+    @JoinColumn(name = "student_id")                // mention the name of the join column
     private Student student;
 
 }
